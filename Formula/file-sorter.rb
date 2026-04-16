@@ -135,10 +135,10 @@ class FileSorter < Formula
     sha256 "ba561c48a67c5958007083d386c3295464928b01faa735ab8547c5692e87f464"
   end
 
-  resource "watchdog" do
-    url "https://files.pythonhosted.org/packages/source/w/watchdog/watchdog-4.0.1.tar.gz"
-    sha256 "a1c6e1f8f6b7d9e6d93a4668a185da30258aab6fa41063f63683bcab9d360f06"
-  end
+resource "watchdog" do
+  url "https://files.pythonhosted.org/packages/source/w/watchdog/watchdog-4.0.1.tar.gz"
+  sha256 "eebaacf674fa25511e8867028d281e602ee6500045b57f43b08778082f7f8b44"
+end
 
   resource "anthropic" do
     url "https://files.pythonhosted.org/packages/source/a/anthropic/anthropic-0.95.0.tar.gz"
