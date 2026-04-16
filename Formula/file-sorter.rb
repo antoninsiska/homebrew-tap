@@ -4,7 +4,7 @@ class FileSorter < Formula
   desc "Flask-based GUI to sort ~/Downloads with regex and Claude AI rules"
   homepage "https://github.com/antoninsiska/file-sorter"
   url "https://github.com/antoninsiska/file-sorter/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "REPLACE_WITH_ACTUAL_SHA256"
+  sha256 "0576a7dd7665ceb7c7ce08452efa514e469e4713e17beb9a7bb2872d717fbd6d"
   license "MIT"
 
   depends_on "python@3.13"
