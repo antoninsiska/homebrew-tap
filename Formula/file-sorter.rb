@@ -156,10 +156,12 @@ class FileSorter < Formula
     ].each { |r| venv.pip_install resource(r) }
 
     # Install Rust-compiled packages via pre-built wheels (bypasses --no-binary)
-    # Use cached_download to get the raw .whl file path — staging would unzip it
+    # Copy wheels into buildpath first — sandbox blocks reads from the Homebrew cache dir
     %w[jiter pydantic-core].each do |r|
+      whl = resource(r).cached_download
+      cp whl, buildpath/whl.basename
       system libexec/"bin/pip", "install", "--no-deps", "--ignore-installed",
-             resource(r).cached_download
+             buildpath/whl.basename
     end
 
     # Install app source files
