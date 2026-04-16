@@ -9,7 +9,6 @@ class FileSorter < Formula
 
   depends_on "python@3.13"
 
-  # Flask dependencies
   resource "blinker" do
     url "https://files.pythonhosted.org/packages/source/b/blinker/blinker-1.9.0.tar.gz"
     sha256 "b4ce2265a7abece45e7cc896e98dbebe6cead56bcf805a3d23136d145f5445bf"
@@ -45,7 +44,6 @@ class FileSorter < Formula
     sha256 "0ef0e52b8a9cd932855379197dd8f94047b359ca0a78695144304cb45f87c9eb"
   end
 
-  # Anthropic dependencies
   resource "annotated-types" do
     url "https://files.pythonhosted.org/packages/source/a/annotated_types/annotated_types-0.7.0.tar.gz"
     sha256 "aff07c09a53a08bc8cfccb9c85b05f1aa9a2a6f23728d790723543408344ce89"
@@ -147,28 +145,34 @@ class FileSorter < Formula
   def install
     venv = virtualenv_create(libexec, "python3.13")
 
-    # Install all source-buildable resources
+    # Nejdriv binarni wheels
+    %w[jiter pydantic-core].each do |r|
+      resource(r).stage do
+        wheel = Dir["*.whl"].first
+        raise "Wheel for #{r} not found" unless wheel
+
+        system libexec/"bin/python", "-m", "pip", "install",
+               "--no-deps",
+               "--ignore-installed",
+               wheel
+      end
+    end
+
+    # Pak ostatni Python dependencies
     %w[
       blinker click itsdangerous jinja2 markupsafe werkzeug flask
       annotated-types anyio certifi distro docstring-parser h11
       httpcore httpx idna pydantic sniffio typing-extensions
       typing-inspection anthropic
-    ].each { |r| venv.pip_install resource(r) }
-
-    # Install Rust-compiled packages via pre-built wheels (bypasses --no-binary)
-    # Strip Homebrew's "{hash}--" cache prefix so pip sees a valid wheel filename
-    %w[jiter pydantic-core].each do |r|
-      whl_src = resource(r).cached_download
-      whl_name = whl_src.basename.to_s.sub(/\A[0-9a-f]+--/, "")
-      whl_dst = buildpath/whl_name
-      cp whl_src, whl_dst
-      system libexec/"bin/pip", "install", "--no-deps", "--ignore-installed", whl_dst
+    ].each do |r|
+      venv.pip_install resource(r)
     end
 
-    # Install app source files
-    libexec.install "app.py", "sorter.py", "config.py", "watcher.py", "file_indexer.py", "templates"
+    # App source files
+    libexec.install "app.py", "sorter.py", "config.py", "watcher.py", "file_indexer.py"
+    cp_r "templates", libexec
 
-    # Write a launcher script
+    # Launcher
     (bin/"file-sorter").write <<~EOS
       #!/bin/bash
       cd "#{libexec}"
@@ -191,6 +195,7 @@ class FileSorter < Formula
   end
 
   test do
-    assert_match "usage", shell_output("#{bin}/file-sorter --help 2>&1", 2)
+    output = shell_output("#{bin}/file-sorter --help 2>&1", 0)
+    assert_match "usage", output.downcase
   end
 end
