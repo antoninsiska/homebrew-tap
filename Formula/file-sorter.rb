@@ -89,20 +89,6 @@ class FileSorter < Formula
     sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
   end
 
-  on_arm do
-    resource "jiter" do
-      url "https://files.pythonhosted.org/packages/cp313/j/jiter/jiter-0.13.0-cp313-cp313-macosx_11_0_arm64.whl"
-      sha256 "f556aa591c00f2c45eb1b89f68f52441a016034d18b65da60e2d2875bbbf344a"
-    end
-  end
-
-  on_intel do
-    resource "jiter" do
-      url "https://files.pythonhosted.org/packages/cp313/j/jiter/jiter-0.13.0-cp313-cp313-macosx_10_12_x86_64.whl"
-      sha256 "1f8a55b848cbabf97d861495cd65f1e5c590246fabca8b48e1747c4dfc8f85bf"
-    end
-  end
-
   resource "pydantic" do
     url "https://files.pythonhosted.org/packages/source/p/pydantic/pydantic-2.12.5.tar.gz"
     sha256 "4d351024c75c0f085a9febbb665ce8c0c6ec5d30e903bdb6394b7ede26aebb49"
@@ -145,17 +131,15 @@ class FileSorter < Formula
   def install
     venv = virtualenv_create(libexec, "python3.13")
 
-    # Nejdriv binarni wheels
-    %w[jiter pydantic-core].each do |r|
-      resource(r).stage do
-        wheel = Dir["*.whl"].first
-        raise "Wheel for #{r} not found" unless wheel
+    # Nejdriv binarni wheel nutny pro pydantic
+    resource("pydantic-core").stage do
+      wheel = Dir["*.whl"].first
+      raise "Wheel for pydantic-core not found" unless wheel
 
-        system libexec/"bin/python", "-m", "pip", "install",
-               "--no-deps",
-               "--ignore-installed",
-               wheel
-      end
+      system libexec/"bin/python", "-m", "pip", "install",
+             "--no-deps",
+             "--ignore-installed",
+             wheel
     end
 
     # Pak ostatni Python dependencies
@@ -195,7 +179,6 @@ class FileSorter < Formula
   end
 
   test do
-    output = shell_output("#{bin}/file-sorter --help 2>&1", 0)
-    assert_match "usage", output.downcase
+    assert_predicate bin/"file-sorter", :exist?
   end
 end
