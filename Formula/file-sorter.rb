@@ -17,12 +17,12 @@ class FileSorter < Formula
 
   resource "click" do
     url "https://files.pythonhosted.org/packages/source/c/click/click-8.3.1.tar.gz"
-    sha256 "6b2e1f78f657448b6d3e3e8eb7daa48b4e2e43c4232cf94b0bfe8c2de78c2e0c"
+    sha256 "12ff4785d337a1bb490bb7e9c2b1ee5da3112e94a8622f26a6c77f5d2fc6842a"
   end
 
   resource "itsdangerous" do
     url "https://files.pythonhosted.org/packages/source/i/itsdangerous/itsdangerous-2.2.0.tar.gz"
-    sha256 "e8034eba94da8c702a96e7ec5e0f23f65f59d0cf38d22ceb99c56c9e7c0e0cf3"
+    sha256 "e0050c0b7da1eea53ffaf149c0cfbb5c6e2e2b69c4bef22c81fa6eb73e5f6173"
   end
 
   resource "jinja2" do
@@ -32,17 +32,17 @@ class FileSorter < Formula
 
   resource "markupsafe" do
     url "https://files.pythonhosted.org/packages/source/m/markupsafe/markupsafe-3.0.3.tar.gz"
-    sha256 "aded5a7cbe609b5db9a2948bdfd7c7c84c6c600a8ee9e0d9e85d81e2c7ba9b7f"
+    sha256 "722695808f4b6457b320fdc131280796bdceb04ab50fe1795cd540799ebe1698"
   end
 
   resource "werkzeug" do
     url "https://files.pythonhosted.org/packages/source/w/werkzeug/werkzeug-3.1.8.tar.gz"
-    sha256 "2c1e6f39f3fb75f4b95c3ea43f43a14ea9f3e17d3c36c42f48d78be74aa86a7b"
+    sha256 "9bad61a4268dac112f1c5cd4630a56ede601b6ed420300677a869083d70a4c44"
   end
 
   resource "flask" do
     url "https://files.pythonhosted.org/packages/source/f/flask/flask-3.1.3.tar.gz"
-    sha256 "71e71c14bf2ac4a6c7e37bb42f17a8c9c1a571c0c3800a77f5bf04d05e61c3b6"
+    sha256 "0ef0e52b8a9cd932855379197dd8f94047b359ca0a78695144304cb45f87c9eb"
   end
 
   # Anthropic dependencies
@@ -53,12 +53,12 @@ class FileSorter < Formula
 
   resource "anyio" do
     url "https://files.pythonhosted.org/packages/source/a/anyio/anyio-4.12.1.tar.gz"
-    sha256 "f80d96cf51d93ab00d69e80b4f9cd38b7a09c5e6efcb2af2be58c69e22bec6b6"
+    sha256 "41cfcc3a4c85d3f05c932da7c26d0201ac36f72abd4435ba90d0464a3ffed703"
   end
 
   resource "certifi" do
     url "https://files.pythonhosted.org/packages/source/c/certifi/certifi-2026.1.4.tar.gz"
-    sha256 "93d9cdbd8e9b9ca78dc8a94e7b4bca4a9ae8f6f009d49d1f2c78bb97f5f20e15"
+    sha256 "ac726dd470482006e014ad384921ed6438c457018f4b3d204aea4281258b2120"
   end
 
   resource "distro" do
@@ -68,17 +68,17 @@ class FileSorter < Formula
 
   resource "docstring-parser" do
     url "https://files.pythonhosted.org/packages/source/d/docstring_parser/docstring_parser-0.18.0.tar.gz"
-    sha256 "83d5cefa72c4bf2f6df7d0d8fa9e0a35c3f3d5f30cb4b3c5fa5e6ef7aead4ef9"
+    sha256 "292510982205c12b1248696f44959db3cdd1740237a968ea1e2e7a900eeb2015"
   end
 
   resource "h11" do
     url "https://files.pythonhosted.org/packages/source/h/h11/h11-0.16.0.tar.gz"
-    sha256 "4e35b956cf45792e4caa5885e69fba00bdbc6ffafbfa020300e549b208ee5dc1"
+    sha256 "4e35b956cf45792e4caa5885e69fba00bdbc6ffafbfa020300e549b208ee5ff1"
   end
 
   resource "httpcore" do
     url "https://files.pythonhosted.org/packages/source/h/httpcore/httpcore-1.0.9.tar.gz"
-    sha256 "6e34463af53fd2ab5d807f399a9b45ea31c3dfa2276f37b4dad5203312f6e7b4"
+    sha256 "6e34463af53fd2ab5d807f399a9b45ea31c3dfa2276f15a2c3f00afff6e176e8"
   end
 
   resource "httpx" do
@@ -88,42 +88,42 @@ class FileSorter < Formula
 
   resource "idna" do
     url "https://files.pythonhosted.org/packages/source/i/idna/idna-3.11.tar.gz"
-    sha256 "b6db50b3b15b3e03bd9e6f8e0c37b7cc3ad29b28f53f455bfff6d98a4bbce80e"
+    sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
   end
 
   resource "jiter" do
     url "https://files.pythonhosted.org/packages/source/j/jiter/jiter-0.13.0.tar.gz"
-    sha256 "5b82f36c9aaf8dcd4a6c70574f5ff2b7760ba49832db7d6042af2e31e38c2461"
+    sha256 "f2839f9c2c7e2dffc1bc5929a510e14ce0a946be9365fd1219e7ef342dae14f4"
   end
 
   resource "pydantic" do
     url "https://files.pythonhosted.org/packages/source/p/pydantic/pydantic-2.12.5.tar.gz"
-    sha256 "00c24aacf43db28a70e7a69b5dd8f15c62afb00c33c3be62de8e7e71b80e0745"
+    sha256 "4d351024c75c0f085a9febbb665ce8c0c6ec5d30e903bdb6394b7ede26aebb49"
   end
 
   resource "pydantic-core" do
     url "https://files.pythonhosted.org/packages/source/p/pydantic_core/pydantic_core-2.41.5.tar.gz"
-    sha256 "8f62f4cbfbf8ceaebb8d74e8c0a8b10d9ae3a36e5c2cc3d72b32c81dfc8a8f8b"
+    sha256 "08daa51ea16ad373ffd5e7606252cc32f07bc72b28284b6bc9c6df804816476e"
   end
 
   resource "sniffio" do
     url "https://files.pythonhosted.org/packages/source/s/sniffio/sniffio-1.3.1.tar.gz"
-    sha256 "f4324edc670a0f49750a81b895f35c3a579e6e52e17e9a9c8a4af9a6ec3fb7d3"
+    sha256 "f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc"
   end
 
   resource "typing-extensions" do
     url "https://files.pythonhosted.org/packages/source/t/typing_extensions/typing_extensions-4.15.0.tar.gz"
-    sha256 "c25e9d86b14bc2c8fc2038b0cae91d4c87b27e79e15f70ad2c04d7b879dba9fb"
+    sha256 "0cea48d173cc12fa28ecabc3b837ea3cf6f38c6d1136f85cbaaf598984861466"
   end
 
   resource "typing-inspection" do
     url "https://files.pythonhosted.org/packages/source/t/typing_inspection/typing_inspection-0.4.2.tar.gz"
-    sha256 "db4b920f02c10f3f580cf0a8a6e3e85c4a4c22de9ac75e8acecba8d9c4f9efdf"
+    sha256 "ba561c48a67c5958007083d386c3295464928b01faa735ab8547c5692e87f464"
   end
 
   resource "anthropic" do
     url "https://files.pythonhosted.org/packages/source/a/anthropic/anthropic-0.95.0.tar.gz"
-    sha256 "REPLACE_WITH_ACTUAL_SHA256"
+    sha256 "e4d815351489e5627f39806f12561c52b574e69be10d12fcab723264f955c11d"
   end
 
   def install
