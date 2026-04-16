@@ -8,6 +8,7 @@ class FileSorter < Formula
   license "MIT"
 
   depends_on "python@3.13"
+  depends_on "rust" => :build
 
   resource "blinker" do
     url "https://files.pythonhosted.org/packages/source/b/blinker/blinker-1.9.0.tar.gz"
@@ -94,18 +95,9 @@ class FileSorter < Formula
     sha256 "4d351024c75c0f085a9febbb665ce8c0c6ec5d30e903bdb6394b7ede26aebb49"
   end
 
-  on_arm do
-    resource "pydantic-core" do
-      url "https://files.pythonhosted.org/packages/cp313/p/pydantic_core/pydantic_core-2.41.5-cp313-cp313-macosx_11_0_arm64.whl"
-      sha256 "112e305c3314f40c93998e567879e887a3160bb8689ef3d2c04b6cc62c33ac34"
-    end
-  end
-
-  on_intel do
-    resource "pydantic-core" do
-      url "https://files.pythonhosted.org/packages/cp313/p/pydantic_core/pydantic_core-2.41.5-cp313-cp313-macosx_10_12_x86_64.whl"
-      sha256 "941103c9be18ac8daf7b7adca8228f8ed6bb7a1849020f643b3a14d15b1924d9"
-    end
+  resource "pydantic-core" do
+    url "https://files.pythonhosted.org/packages/source/p/pydantic_core/pydantic_core-2.41.5.tar.gz"
+    sha256 "08daa51ea16ad373ffd5e7606252cc32f07bc72b28284b6bc9c6df804816476e"
   end
 
   resource "sniffio" do
@@ -131,32 +123,20 @@ class FileSorter < Formula
   def install
     venv = virtualenv_create(libexec, "python3.13")
 
-    # Nejdriv binarni wheel nutny pro pydantic
-    resource("pydantic-core").stage do
-      wheel = Dir["*.whl"].first
-      raise "Wheel for pydantic-core not found" unless wheel
+    ENV["PIP_NO_BINARY"] = ":all:"
 
-      system libexec/"bin/python", "-m", "pip", "install",
-             "--no-deps",
-             "--ignore-installed",
-             wheel
-    end
-
-    # Pak ostatni Python dependencies
     %w[
       blinker click itsdangerous jinja2 markupsafe werkzeug flask
       annotated-types anyio certifi distro docstring-parser h11
-      httpcore httpx idna pydantic sniffio typing-extensions
-      typing-inspection anthropic
+      httpcore httpx idna pydantic-core pydantic sniffio
+      typing-extensions typing-inspection anthropic
     ].each do |r|
       venv.pip_install resource(r)
     end
 
-    # App source files
     libexec.install "app.py", "sorter.py", "config.py", "watcher.py", "file_indexer.py"
     cp_r "templates", libexec
 
-    # Launcher
     (bin/"file-sorter").write <<~EOS
       #!/bin/bash
       cd "#{libexec}"
