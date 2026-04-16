@@ -156,12 +156,13 @@ class FileSorter < Formula
     ].each { |r| venv.pip_install resource(r) }
 
     # Install Rust-compiled packages via pre-built wheels (bypasses --no-binary)
-    # Copy wheels into buildpath first — sandbox blocks reads from the Homebrew cache dir
+    # Strip Homebrew's "{hash}--" cache prefix so pip sees a valid wheel filename
     %w[jiter pydantic-core].each do |r|
-      whl = resource(r).cached_download
-      cp whl, buildpath/whl.basename
-      system libexec/"bin/pip", "install", "--no-deps", "--ignore-installed",
-             buildpath/whl.basename
+      whl_src = resource(r).cached_download
+      whl_name = whl_src.basename.to_s.sub(/\A[0-9a-f]+--/, "")
+      whl_dst = buildpath/whl_name
+      cp whl_src, whl_dst
+      system libexec/"bin/pip", "install", "--no-deps", "--ignore-installed", whl_dst
     end
 
     # Install app source files
