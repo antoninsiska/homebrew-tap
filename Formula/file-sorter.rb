@@ -7,7 +7,7 @@ class FileSorter < Formula
   sha256 "0576a7dd7665ceb7c7ce08452efa514e469e4713e17beb9a7bb2872d717fbd6d"
   license "MIT"
 
-  depends_on "python@3.13"
+  depends_on "python@3.12"
   depends_on "rust" => :build
 
   resource "blinker" do
@@ -60,6 +60,11 @@ class FileSorter < Formula
     sha256 "ac726dd470482006e014ad384921ed6438c457018f4b3d204aea4281258b2120"
   end
 
+  resource "charset-normalizer" do
+    url "https://files.pythonhosted.org/packages/source/c/charset_normalizer/charset_normalizer-3.4.4.tar.gz"
+    sha256 "94537985111c35f28720e43603b8e7b43a6ecfb2ce1d3058bbe955b73404e21a"
+  end
+
   resource "distro" do
     url "https://files.pythonhosted.org/packages/source/d/distro/distro-1.9.0.tar.gz"
     sha256 "2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed"
@@ -100,6 +105,11 @@ class FileSorter < Formula
     sha256 "08daa51ea16ad373ffd5e7606252cc32f07bc72b28284b6bc9c6df804816476e"
   end
 
+  resource "requests" do
+    url "https://files.pythonhosted.org/packages/source/r/requests/requests-2.32.5.tar.gz"
+    sha256 "dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf"
+  end
+
   resource "sniffio" do
     url "https://files.pythonhosted.org/packages/source/s/sniffio/sniffio-1.3.1.tar.gz"
     sha256 "f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc"
@@ -115,21 +125,27 @@ class FileSorter < Formula
     sha256 "ba561c48a67c5958007083d386c3295464928b01faa735ab8547c5692e87f464"
   end
 
+  resource "urllib3" do
+    url "https://files.pythonhosted.org/packages/source/u/urllib3/urllib3-2.5.0.tar.gz"
+    sha256 "3fc47733c7e419d4bc3f6b3dc2b4f890bb743906a30d56ba4a5bfa4bbff92760"
+  end
+
   resource "anthropic" do
     url "https://files.pythonhosted.org/packages/source/a/anthropic/anthropic-0.95.0.tar.gz"
     sha256 "e4d815351489e5627f39806f12561c52b574e69be10d12fcab723264f955c11d"
   end
 
   def install
-    venv = virtualenv_create(libexec, "python3.13")
+    venv = virtualenv_create(libexec, "python3.12")
 
     ENV["PIP_NO_BINARY"] = ":all:"
 
     %w[
       blinker click itsdangerous jinja2 markupsafe werkzeug flask
-      annotated-types anyio certifi distro docstring-parser h11
-      httpcore httpx idna pydantic-core pydantic sniffio
-      typing-extensions typing-inspection anthropic
+      annotated-types anyio certifi charset-normalizer distro
+      docstring-parser h11 httpcore httpx idna pydantic-core
+      pydantic requests sniffio typing-extensions typing-inspection
+      urllib3 anthropic
     ].each do |r|
       venv.pip_install resource(r)
     end
