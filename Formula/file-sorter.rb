@@ -91,9 +91,18 @@ class FileSorter < Formula
     sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
   end
 
-  resource "jiter" do
-    url "https://files.pythonhosted.org/packages/source/j/jiter/jiter-0.13.0.tar.gz"
-    sha256 "f2839f9c2c7e2dffc1bc5929a510e14ce0a946be9365fd1219e7ef342dae14f4"
+  on_arm do
+    resource "jiter" do
+      url "https://files.pythonhosted.org/packages/cp313/j/jiter/jiter-0.13.0-cp313-cp313-macosx_11_0_arm64.whl"
+      sha256 "f556aa591c00f2c45eb1b89f68f52441a016034d18b65da60e2d2875bbbf344a"
+    end
+  end
+
+  on_intel do
+    resource "jiter" do
+      url "https://files.pythonhosted.org/packages/cp313/j/jiter/jiter-0.13.0-cp313-cp313-macosx_10_12_x86_64.whl"
+      sha256 "1f8a55b848cbabf97d861495cd65f1e5c590246fabca8b48e1747c4dfc8f85bf"
+    end
   end
 
   resource "pydantic" do
@@ -101,9 +110,18 @@ class FileSorter < Formula
     sha256 "4d351024c75c0f085a9febbb665ce8c0c6ec5d30e903bdb6394b7ede26aebb49"
   end
 
-  resource "pydantic-core" do
-    url "https://files.pythonhosted.org/packages/source/p/pydantic_core/pydantic_core-2.41.5.tar.gz"
-    sha256 "08daa51ea16ad373ffd5e7606252cc32f07bc72b28284b6bc9c6df804816476e"
+  on_arm do
+    resource "pydantic-core" do
+      url "https://files.pythonhosted.org/packages/cp313/p/pydantic_core/pydantic_core-2.41.5-cp313-cp313-macosx_11_0_arm64.whl"
+      sha256 "112e305c3314f40c93998e567879e887a3160bb8689ef3d2c04b6cc62c33ac34"
+    end
+  end
+
+  on_intel do
+    resource "pydantic-core" do
+      url "https://files.pythonhosted.org/packages/cp313/p/pydantic_core/pydantic_core-2.41.5-cp313-cp313-macosx_10_12_x86_64.whl"
+      sha256 "941103c9be18ac8daf7b7adca8228f8ed6bb7a1849020f643b3a14d15b1924d9"
+    end
   end
 
   resource "sniffio" do
