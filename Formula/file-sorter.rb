@@ -95,6 +95,11 @@ class FileSorter < Formula
     sha256 "795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902"
   end
 
+  resource "jiter" do
+    url "https://files.pythonhosted.org/packages/source/j/jiter/jiter-0.14.0.tar.gz"
+    sha256 "e8a39e66dac7153cf3f964a12aad515afa8d74938ec5cc0018adcdae5367c79e"
+  end
+
   resource "pydantic" do
     url "https://files.pythonhosted.org/packages/source/p/pydantic/pydantic-2.12.5.tar.gz"
     sha256 "4d351024c75c0f085a9febbb665ce8c0c6ec5d30e903bdb6394b7ede26aebb49"
@@ -108,6 +113,11 @@ class FileSorter < Formula
   resource "requests" do
     url "https://files.pythonhosted.org/packages/source/r/requests/requests-2.32.5.tar.gz"
     sha256 "dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf"
+  end
+
+  resource "urllib3" do
+    url "https://files.pythonhosted.org/packages/source/u/urllib3/urllib3-2.5.0.tar.gz"
+    sha256 "3fc47733c7e419d4bc3f6b3dc2b4f890bb743906a30d56ba4a5bfa4bbff92760"
   end
 
   resource "sniffio" do
@@ -125,9 +135,9 @@ class FileSorter < Formula
     sha256 "ba561c48a67c5958007083d386c3295464928b01faa735ab8547c5692e87f464"
   end
 
-  resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/source/u/urllib3/urllib3-2.5.0.tar.gz"
-    sha256 "3fc47733c7e419d4bc3f6b3dc2b4f890bb743906a30d56ba4a5bfa4bbff92760"
+  resource "watchdog" do
+    url "https://files.pythonhosted.org/packages/source/w/watchdog/watchdog-4.0.1.tar.gz"
+    sha256 "a1c6e1f8f6b7d9e6d93a4668a185da30258aab6fa41063f63683bcab9d360f06"
   end
 
   resource "anthropic" do
@@ -137,15 +147,14 @@ class FileSorter < Formula
 
   def install
     venv = virtualenv_create(libexec, "python3.12")
-
     ENV["PIP_NO_BINARY"] = ":all:"
 
     %w[
       blinker click itsdangerous jinja2 markupsafe werkzeug flask
       annotated-types anyio certifi charset-normalizer distro
-      docstring-parser h11 httpcore httpx idna pydantic-core
+      docstring-parser h11 httpcore httpx idna jiter pydantic-core
       pydantic requests sniffio typing-extensions typing-inspection
-      urllib3 anthropic
+      urllib3 watchdog anthropic
     ].each do |r|
       venv.pip_install resource(r)
     end
@@ -164,13 +173,6 @@ class FileSorter < Formula
     <<~EOS
       To start File Sorter:
         file-sorter
-
-      The web UI will open automatically at http://127.0.0.1:5173
-
-      To run without opening a browser:
-        file-sorter --no-browser
-
-      Config and history are stored in ~/.file-sorter/
     EOS
   end
 
