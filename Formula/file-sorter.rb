@@ -145,16 +145,34 @@ class FileSorter < Formula
   end
 
   def install
-    virtualenv_install_with_resources
+    venv = virtualenv_create(libexec, "python3.13")
 
-    # Install app source files into libexec
+    # Install all source-buildable resources
+    %w[
+      blinker click itsdangerous jinja2 markupsafe werkzeug flask
+      annotated-types anyio certifi distro docstring-parser h11
+      httpcore httpx idna pydantic sniffio typing-extensions
+      typing-inspection anthropic
+    ].each { |r| venv.pip_install resource(r) }
+
+    # Install Rust-compiled packages via pre-built wheels (bypasses --no-binary)
+    resource("jiter").stage do
+      system libexec/"bin/pip", "install", "--no-deps", "--ignore-installed",
+             Dir["*.whl"].first
+    end
+    resource("pydantic-core").stage do
+      system libexec/"bin/pip", "install", "--no-deps", "--ignore-installed",
+             Dir["*.whl"].first
+    end
+
+    # Install app source files
     libexec.install "app.py", "sorter.py", "config.py", "watcher.py", "file_indexer.py", "templates"
 
     # Write a launcher script
     (bin/"file-sorter").write <<~EOS
       #!/bin/bash
       cd "#{libexec}"
-      exec "#{virtualenv_root}/bin/python" "#{libexec}/app.py" "$@"
+      exec "#{libexec}/bin/python" "#{libexec}/app.py" "$@"
     EOS
   end
 
